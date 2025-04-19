@@ -49,28 +49,28 @@ This module integrates Odoo with Zalo ZNS (Zero Notification Service) through BO
    Or using the Odoo command line:
 
    ```bash
-   ./odoo-bin -c /path/to/odoo.conf -u bom
+   ./odoo-bin -c /path/to/odoo.conf -u bom_zns_simple
    ```
 
 4. **Install the module**
 
-   From the Odoo Apps menu, find "BOM ZNS Integration" and click Install.
+   From the Odoo Apps menu, find "bom_zns_simple ZNS Integration" and click Install.
 
    Alternatively, you can install it from the command line:
 
    ```bash
-   ./odoo-bin -c /path/to/odoo.conf -i bom
+   ./odoo-bin -c /path/to/odoo.conf -i bom_zns_simple
    ```
 
 ## Configuration
 
-### 1. Set up BOM ZNS credentials
+### 1. Set up bom_zns_simple ZNS credentials
 
-Navigate to **Zalo ZNS > Configuration > Settings** and enter your BOM API credentials:
+Navigate to **Zalo ZNS > Configuration > Settings** and enter your bom_zns_simple API credentials:
 
 - API Key
 - API Secret
-- API Base URL (default is `https://zns.bom_zns_simple.asia/api`)
+- API Base URL (default is `https://zns.bom.asia/api`)
 
 Click "Test Connection" to verify your credentials.
 
@@ -82,12 +82,12 @@ Click "Sync OA Info" to retrieve information about your Zalo Official Account.
 
 ### 3. Set up templates
 
-Navigate to **Zalo ZNS > Templates** and create a new template or import existing ones from bom_zns_simple.
+Navigate to **Zalo ZNS > Templates** and create a new template or import existing ones from bom_zns_simple_zns_simple.
 
 For each template:
-1. Enter the Template Code provided by BOM
+1. Enter the Template Code provided by bom_zns_simple
 2. Select the Template Type (Transaction, OTP, Promotion)
-3. Click "Sync from BOM" to retrieve template information
+3. Click "Sync from bom_zns_simple" to retrieve template information
 4. Configure template variants/parameters
 
 ## Usage
@@ -151,12 +151,12 @@ For complex parameter values:
 
 1. **Connection Failed**
    - Verify API credentials
-   - Check network connectivity to BOM API
-   - Ensure your IP is whitelisted in BOM
+   - Check network connectivity to bom_zns_simple API
+   - Ensure your IP is whitelisted in bom_zns_simple
 
 2. **Template Not Found**
    - Verify template code
-   - Ensure template is activated in BOM dashboard
+   - Ensure template is activated in bom_zns_simple dashboard
 
 3. **Missing Parameters**
    - Check required parameters for the template
@@ -167,7 +167,7 @@ For complex parameter values:
 Check Odoo logs for detailed error messages:
 
 ```bash
-tail -f /var/log/odoo/odoo.log | grep "BOM ZNS"
+tail -f /var/log/odoo/odoo.log | grep "bom_zns_simple ZNS"
 ```
 
 ## Security Notes
