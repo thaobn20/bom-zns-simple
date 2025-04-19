@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default ZNS API instance for dashboard -->
+        <record id="default_bom_zns" model="bom_zns_simple.zns">
+            <field name="name">ZNS API</field>
+        </record>
+        
+        <!-- Default configuration parameters -->
+        <record id="param_bom_zns_auto_check" model="ir.config_parameter">
+            <field name="key">bom_zns_simple.zns.auto_check</field>
+            <field name="value">True</field>
+        </record>
+        
+        <record id="param_bom_zns_check_interval" model="ir.config_parameter">
+            <field name="key">bom_zns_simple.zns.check_interval</field>
+            <field name="value">60</field>
+        </record>
+        
+        <record id="param_bom_zns_safe_eval" model="ir.config_parameter">
+            <field name="key">bom_zns_simple.zns.safe_eval</field>
+            <field name="value">False</field>
+        </record>
+    </data>
+</odoo>

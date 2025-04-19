@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Settings Form View -->
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.bom</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Zalo ZNS" string="Zalo ZNS" data-key="bom">
+                        <h2>Zalo ZNS Integration</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">BOM API Credentials</span>
+                                    <div class="text-muted">
+                                        Configure your BOM ZNS API credentials
+                                    </div>
+                                    <div class="content-group mt16">
+                                        <div class="row mt16">
+                                            <label for="bom_zns_api_key" class="col-lg-3 o_light_label"/>
+                                            <field name="bom_zns_api_key" placeholder="API Key"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label for="bom_zns_api_secret" class="col-lg-3 o_light_label"/>
+                                            <field name="bom_zns_api_secret" password="True" placeholder="API Secret"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label for="bom_zns_base_url" class="col-lg-3 o_light_label"/>
+                                            <field name="bom_zns_base_url" placeholder="API Base URL"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <button name="action_bom_zns_test_connection" string="Test Connection" type="object" class="btn-primary"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="bom_zns_debug_mode"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="bom_zns_debug_mode"/>
+                                    <div class="text-muted">
+                                        Enable debug mode for detailed logging
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="bom_zns_auto_check"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="bom_zns_auto_check"/>
+                                    <div class="text-muted">
+                                        Automatically check message status with cron job
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('bom_zns_auto_check', '=', False)]}">
+                                        <div class="row mt16">
+                                            <label for="bom_zns_check_interval" class="col-lg-3 o_light_label"/>
+                                            <field name="bom_zns_check_interval"/> minutes
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="bom_zns_safe_eval"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="bom_zns_safe_eval"/>
+                                    <div class="text-muted">
+                                        Enable custom expressions for variant values (security risk)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Settings Action -->
+        <record id="action_bom_zns_config_settings" model="ir.actions.act_window">
+            <field name="name">ZNS Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module': 'bom'}</field>
+        </record>
+    </data>
+</odoo>

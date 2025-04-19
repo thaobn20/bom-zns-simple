@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bom_zns_config_manager,bom_zns_simple.zns.config manager,model_bom_zns_config,base.group_system,1,1,1,1
+access_bom_zns_config_user,bom_zns_simple.zns.config user,model_bom_zns_config,base.group_user,1,0,0,0
+access_bom_zns_template_manager,bom_zns_simple.zns.template manager,model_bom_zns_template,base.group_user,1,1,1,1
+access_bom_zns_variant_manager,bom_zns_simple.zns.variant manager,model_bom_zns_variant,base.group_user,1,1,1,1
+access_bom_zns_history_manager,bom_zns_simple.zns.history manager,model_bom_zns_history,base.group_user,1,1,1,1
+access_bom_zns_manager,bom_zns_simple.zns manager,model_bom_zns,base.group_user,1,1,1,1
+access_bom_zns_send_wizard,bom_zns_simple.zns.send.wizard,model_bom_zns_send_wizard,base.group_user,1,1,1,0
+access_bom_zns_send_wizard_line,bom_zns_simple.zns.send.wizard.line,model_bom_zns_send_wizard_line,base.group_user,1,1,1,0

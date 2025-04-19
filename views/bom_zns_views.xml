@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ZNS Configuration Views -->
+        <record id="bom_zns_config_view_form" model="ir.ui.view">
+            <field name="name">bom_zns_simple.zns.config.form</field>
+            <field name="model">bom_zns_simple.zns.config</field>
+            <field name="arch" type="xml">
+                <form string="ZNS Configuration">
+                    <header>
+                        <button name="test_connection" string="Test Connection" type="object" class="oe_highlight"/>
+                        <button name="sync_zalo_oa_info" string="Sync OA Info" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Configuration Name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="api_key" password="True"/>
+                                <field name="api_secret" password="True"/>
+                                <field name="base_url" placeholder="https://zns.bom_zns_simple.asia/api"/>
+                                <field name="active" widget="boolean_toggle"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="debug_mode"/>
+                                <field name="zalo_oa_id" readonly="1"/>
+                                <field name="zalo_oa_name" readonly="1"/>
+                                <field name="last_sync_date" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="bom_zns_config_view_tree" model="ir.ui.view">
+            <field name="name">bom_zns_simple.zns.config.tree</field>
+            <field name="model">bom_zns_simple.zns.config</field>
+            <field name="arch" type="xml">
+                <tree string="ZNS Configurations">
+                    <field name="name"/>
+                    <field name="zalo_oa_name"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="debug_mode"/>
+                    <field name="active" widget="boolean_toggle"/>
+                    <field name="last_sync_date"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_bom_zns_config" model="ir.actions.act_window">
+            <field name="name">ZNS Configurations</field>
+            <field name="res_model">bom_zns_simple.zns.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first ZNS configuration
+                </p>
+                <p>
+                    Configure your BOM ZNS API credentials to start sending messages.
+                </p>
+            </field>
+        </record>
+        
+        <!-- ZNS Variant Views -->
+        <record id="bom_zns_variant_view_form" model="ir.ui.view">
+            <field name="name">bom_zns_simple.zns.variant.form</field>
+            <field name="model">bom_zns_simple.zns.variant</field>
+            <field name="arch" type="xml">
+                <form string="Template Variant">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Variant Name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="param_name"/>
+                                <field name="param_type"/>
+                                <field name="required"/>
+                                <field name="active" widget="boolean_toggle"/>
+                                <field name="sequence" groups="base.group_no_one"/>
+                            </group>
+                            <group>
+                                <field name="template_id" readonly="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="default_value" placeholder="Default value for testing"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Field Mapping" name="field_mapping">
+                                <group>
+                                    <group>
+                                        <field name="field_model"/>
+                                        <field name="field_name" placeholder="Field name or custom expression"/>
+                                        <field name="field_format" placeholder="E.g., '{:.2f}'"/>
+                                    </group>
+                                    <group>
+                                        <!-- Conditional fields based on param_type -->
+                                        <field name="decimal_places" attrs="{'invisible': [('param_type', 'not in', ['number', 'currency'])]}"/>
+                                        <field name="thousand_separator" attrs="{'invisible': [('param_type', 'not in', ['number', 'currency'])]}"/>
+                                        <field name="date_format" attrs="{'invisible': [('param_type', '!=', 'date')]}"/>
+                                        <field name="currency_symbol" attrs="{'invisible': [('param_type', '!=', 'currency'])]}"/>
+                                        <field name="currency_position" attrs="{'invisible': [('param_type', '!=', 'currency'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Description" name="description">
+                                <field name="description" placeholder="Description of this parameter"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="bom_zns_variant_view_tree" model="ir.ui.view">
+            <field name="name">bom_zns_simple.zns.variant.tree</field>
+            <field name="model">bom_zns_simple.zns.variant</field>
+            <field name="arch" type="xml">
+                <tree string="Template Variants">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="param_name"/>
+                    <field name="param_type"/>
+                    <field name="required"/>
+                    <field name="default_value"/>
+                    <field name="field_model"/>
+                    <field name="field_name"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_bom_zns_variant" model="ir.actions.act_window">
+            <field name="name">Template Variants</field>
+            <field name="res_model">bom_zns_simple.zns.variant</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="domain">[('template_id', '=', active_id)]</field>
+        </record>
+    </data>
+</odoo>

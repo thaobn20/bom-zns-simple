@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Dashboard Templates -->
+        <template id="assets_backend" name="bom assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!-- JS Files -->
+                <script type="text/javascript" src="/bom/static/src/js/bom_zns_dashboard.js"></script>
+                <script type="text/javascript" src="/bom/static/src/js/bom_zns_widget.js"></script>
+                
+                <!-- CSS Files -->
+                <link rel="stylesheet" type="text/css" href="/bom/static/src/css/bom_zns_style.css"/>
+            </xpath>
+        </template>
+        
+        <!-- Dashboard QWeb Template -->
+        <template id="bom_zns_dashboard_templates" name="BOM ZNS Dashboard Templates">
+            <t t-name="BomZnsDashboard">
+                <div class="o_bom_zns_dashboard">
+                    <div class="o_control_panel">
+                        <div class="o_cp_top">
+                            <div class="o_cp_top_left">
+                                <h1>Zalo ZNS Dashboard</h1>
+                            </div>
+                            <div class="o_cp_top_right">
+                                <button type="button" class="btn btn-primary o_bom_zns_refresh">
+                                    <i class="fa fa-refresh"></i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- KPI Cards -->
+                    <div class="container-fluid mt16">
+                        <div class="row o_bom_zns_dashboard_kpi">
+                            <div class="col-lg-4 col-sm-6 mb16">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">Total Messages</h5>
+                                        <h2 class="o_bom_zns_total_messages">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 mb16">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">Read Messages</h5>
+                                        <h2 class="o_bom_zns_read_messages">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 mb16">
+                                <div class="card bg-danger text-white">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">Failed Messages</h5>
+                                        <h2 class="o_bom_zns_failed_messages">0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ZNS OA Information -->
+                        <div class="row">
+                            <div class="col-lg-6 mb16">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Zalo OA Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="o_bom_zns_oa_info">
+                                            <p><strong>OA Name:</strong> <span class="o_bom_zns_oa_name">-</span></p>
+                                            <p><strong>OA ID:</strong> <span class="o_bom_zns_oa_id">-</span></p>
+                                            <p><strong>Last Sync:</strong> <span class="o_bom_zns_last_sync">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Message Status -->
+                            <div class="col-lg-6 mb16">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Message Status</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="o_bom_zns_status_chart" style="height: 250px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Monthly Stats & Template Usage -->
+                        <div class="row">
+                            <div class="col-lg-6 mb16">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Monthly Statistics</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="o_bom_zns_monthly_chart" style="height: 300px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6 mb16">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Template Usage</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="o_bom_zns_template_chart" style="height: 300px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Messages -->
+                        <div class="row">
+                            <div class="col-12 mb16">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Recent Messages</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="o_bom_zns_recent_messages">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Template</th>
+                                                            <th>Recipient</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="o_bom_zns_no_messages">
+                                                            <td colspan="5" class="text-center">No recent messages</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

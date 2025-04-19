@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Menu -->
+        <menuitem 
+            id="menu_bom_zns_root" 
+            name="Zalo ZNS" 
+            web_icon="bom,static/description/icon.png" 
+            sequence="85"/>
+        
+        <!-- Dashboard Menu -->
+        <menuitem 
+            id="menu_bom_zns_dashboard" 
+            name="Dashboard" 
+            parent="menu_bom_zns_root" 
+            action="action_bom_zns_dashboard" 
+            sequence="1"/>
+        
+        <!-- Templates Menu -->
+        <menuitem 
+            id="menu_bom_zns_templates" 
+            name="Templates" 
+            parent="menu_bom_zns_root" 
+            action="action_bom_zns_template" 
+            sequence="10"/>
+        
+        <!-- Message History Menu -->
+        <menuitem 
+            id="menu_bom_zns_history" 
+            name="Message History" 
+            parent="menu_bom_zns_root" 
+            action="action_bom_zns_history" 
+            sequence="20"/>
+        
+        <!-- Configuration Menu -->
+        <menuitem 
+            id="menu_bom_zns_config" 
+            name="Configuration" 
+            parent="menu_bom_zns_root" 
+            sequence="100"/>
+        
+        <!-- Settings Menu -->
+        <menuitem 
+            id="menu_bom_zns_settings" 
+            name="Settings" 
+            parent="menu_bom_zns_config" 
+            action="action_bom_zns_config_settings" 
+            sequence="10" 
+            groups="base.group_system"/>
+        
+        <!-- ZNS Configuration Menu -->
+        <menuitem 
+            id="menu_bom_zns_configuration" 
+            name="ZNS Connections" 
+            parent="menu_bom_zns_config" 
+            action="action_bom_zns_config" 
+            sequence="20" 
+            groups="base.group_system"/>
+    </data>
+</odoo>
