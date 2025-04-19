@@ -12,7 +12,7 @@ class BomZnsPortal(CustomerPortal):
         
         if 'zns_count' in counters:
             partner = request.env.user.partner_id
-            values['zns_count'] = request.env['bom_zns_simple.zns.history'].sudo().search_count([
+            values['zns_count'] = request.env['bom.zns.history'].sudo().search_count([
                 ('partner_id', '=', partner.id)
             ])
         
@@ -23,12 +23,12 @@ class BomZnsPortal(CustomerPortal):
         """Display ZNS messages in customer portal"""
         values = self._prepare_portal_layout_values()
         partner = request.env.user.partner_id
-        BomZnsHistory = request.env['bom_zns_simple.zns.history'].sudo()
+        BomZnsHistory = request.env['bom.zns.history'].sudo()
         
         domain = [('partner_id', '=', partner.id)]
         
         # Archive groups - Default Group By 'create_date'
-        archive_groups = self._get_archive_groups('bom_zns_simple.zns.history', domain)
+        archive_groups = self._get_archive_groups('bom.zns.history', domain)
         
         # Date filtering
         if date_begin and date_end:
@@ -87,13 +87,13 @@ class BomZnsPortal(CustomerPortal):
             'filterby': filterby,
         })
         
-        return request.render("bom_zns_simple.portal_my_zns", values)
+        return request.render("bom.portal_my_zns", values)
     
     @http.route(['/my/zns/<int:zns_id>'], type='http', auth="user", website=True)
     def portal_my_zns_detail(self, zns_id, **kw):
         """Display a specific ZNS message in the portal"""
         partner = request.env.user.partner_id
-        BomZnsHistory = request.env['bom_zns_simple.zns.history'].sudo()
+        BomZnsHistory = request.env['bom.zns.history'].sudo()
         
         # Get the message if it belongs to the partner
         message = BomZnsHistory.search([
@@ -117,4 +117,4 @@ class BomZnsPortal(CustomerPortal):
             'page_name': 'zns',
         }
         
-        return request.render("bom_zns_simple.portal_my_zns_detail", values)
+        return request.render("bom.portal_my_zns_detail", values)

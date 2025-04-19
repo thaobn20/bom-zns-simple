@@ -11,7 +11,7 @@ class ResConfigSettings(models.TransientModel):
                                       help='Automatically check message status with cron job')
     bom_zns_check_interval = fields.Integer(string='Check Interval (Minutes)', default=60,
                                          help='Interval in minutes to check message status')
-    bom_zns_config_id = fields.Many2one('bom_zns_simple.zns.config', string='ZNS Configuration')
+    bom_zns_config_id = fields.Many2one('bom.zns.config', string='ZNS Configuration')
     bom_zns_safe_eval = fields.Boolean(string='Enable Custom Expressions', 
                                      help='Enable custom expressions for variant values (security risk)')
     
@@ -20,7 +20,7 @@ class ResConfigSettings(models.TransientModel):
         res = super(ResConfigSettings, self).get_values()
         
         # Get configuration
-        config = self.env['bom_zns_simple.zns.config'].search([
+        config = self.env['bom.zns.config'].search([
             ('company_id', '=', self.env.company.id),
             ('active', '=', True)
         ], limit=1)
@@ -38,9 +38,9 @@ class ResConfigSettings(models.TransientModel):
         # Get other settings from parameters
         IrParam = self.env['ir.config_parameter'].sudo()
         res.update({
-            'bom_zns_auto_check': IrParam.get_param('bom_zns_simple.zns.auto_check', 'True').lower() == 'true',
-            'bom_zns_check_interval': int(IrParam.get_param('bom_zns_simple.zns.check_interval', '60')),
-            'bom_zns_safe_eval': IrParam.get_param('bom_zns_simple.zns.safe_eval', 'False').lower() == 'true',
+            'bom_zns_auto_check': IrParam.get_param('bom.zns.auto_check', 'True').lower() == 'true',
+            'bom_zns_check_interval': int(IrParam.get_param('bom.zns.check_interval', '60')),
+            'bom_zns_safe_eval': IrParam.get_param('bom.zns.safe_eval', 'False').lower() == 'true',
         })
         
         return res
@@ -51,19 +51,19 @@ class ResConfigSettings(models.TransientModel):
         # Update configuration
         config = self.bom_zns_config_id
         if not config:
-            config = self.env['bom_zns_simple.zns.config'].search([
+            config = self.env['bom.zns.config'].search([
                 ('company_id', '=', self.env.company.id),
                 ('active', '=', True)
             ], limit=1)
         
         if not config:
             # Create new configuration if none exists
-            config = self.env['bom_zns_simple.zns.config'].create({
+            config = self.env['bom.zns.config'].create({
                 'name': 'BOM ZNS Configuration',
                 'company_id': self.env.company.id,
                 'api_key': self.bom_zns_api_key,
                 'api_secret': self.bom_zns_api_secret,
-                'base_url': self.bom_zns_base_url or 'https://zns.bom_zns_simple.asia/api',
+                'base_url': self.bom_zns_base_url or 'https://zns.bom.asia/api',
                 'debug_mode': self.bom_zns_debug_mode,
             })
         else:
@@ -77,12 +77,12 @@ class ResConfigSettings(models.TransientModel):
         
         # Update parameters
         IrParam = self.env['ir.config_parameter'].sudo()
-        IrParam.set_param('bom_zns_simple.zns.auto_check', str(self.bom_zns_auto_check))
-        IrParam.set_param('bom_zns_simple.zns.check_interval', str(self.bom_zns_check_interval))
-        IrParam.set_param('bom_zns_simple.zns.safe_eval', str(self.bom_zns_safe_eval))
+        IrParam.set_param('bom.zns.auto_check', str(self.bom_zns_auto_check))
+        IrParam.set_param('bom.zns.check_interval', str(self.bom_zns_check_interval))
+        IrParam.set_param('bom.zns.safe_eval', str(self.bom_zns_safe_eval))
         
         # Update cron job interval if it exists
-        cron_job = self.env.ref('bom_zns_simple.bom_zns_cron_check_status', raise_if_not_found=False)
+        cron_job = self.env.ref('bom.bom_zns_cron_check_status', raise_if_not_found=False)
         if cron_job and self.bom_zns_check_interval:
             # Convert minutes to cron interval
             cron_job.interval_number = self.bom_zns_check_interval
@@ -92,7 +92,7 @@ class ResConfigSettings(models.TransientModel):
         """Test connection to BOM ZNS API"""
         config = self.bom_zns_config_id
         if not config:
-            config = self.env['bom_zns_simple.zns.config'].search([
+            config = self.env['bom.zns.config'].search([
                 ('company_id', '=', self.env.company.id),
                 ('active', '=', True)
             ], limit=1)

@@ -15,14 +15,14 @@
         'crm',
         'account',
     ],
-    'data': [       
-        # Data
-        'data/bom_zns_data.xml',
-        'data/bom_zns_cron.xml',
- 
+    'data': [    
         # Security
         'security/bom_zns_security.xml',
         'security/ir.model.access.csv',
+    
+        # Data
+        'data/bom_zns_data.xml',
+        'data/bom_zns_cron.xml',
         
         # Views
         'views/bom_zns_views.xml',

@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 _logger = logging.getLogger(__name__)
 
 class BomZnsVariant(models.Model):
-    _name = 'bom_zns_simple.zns.variant'
+    _name = 'bom.zns.variant'
     _description = 'BOM ZNS Template Variant'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
@@ -31,7 +31,7 @@ class BomZnsVariant(models.Model):
                              help='Whether this parameter is required for the template')
     
     # Related fields
-    template_id = fields.Many2one('bom_zns_simple.zns.template', string='Template', required=True, ondelete='cascade')
+    template_id = fields.Many2one('bom.zns.template', string='Template', required=True, ondelete='cascade')
     company_id = fields.Many2one('res.company', related='template_id.company_id', store=True, readonly=True)
     
     # Default value for testing
@@ -89,7 +89,7 @@ class BomZnsVariant(models.Model):
             if self.field_model == 'custom':
                 # Using safe_eval to evaluate custom expressions with record
                 try:
-                    value = self.env['ir.config_parameter'].sudo().get_param('bom_zns_simple.zns.safe_eval', 'False').lower() == 'true'
+                    value = self.env['ir.config_parameter'].sudo().get_param('bom.zns.safe_eval', 'False').lower() == 'true'
                     if value:
                         value = self.env['ir.actions.server']._eval_context(record).get('record', record)
                         value = safe_eval(self.field_name, {'record': value})

@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         """Compute the number of ZNS messages sent to this partner"""
         for partner in self:
             domain = [('partner_id', '=', partner.id)]
-            partner.zns_history_count = self.env['bom_zns_simple.zns.history'].search_count(domain)
+            partner.zns_history_count = self.env['bom.zns.history'].search_count(domain)
     
     def write(self, vals):
         """Override write to track opt-in changes"""
@@ -36,7 +36,7 @@ class ResPartner(models.Model):
         return {
             'name': _('ZNS Messages'),
             'type': 'ir.actions.act_window',
-            'res_model': 'bom_zns_simple.zns.history',
+            'res_model': 'bom.zns.history',
             'view_mode': 'tree,form',
             'domain': [('partner_id', '=', self.id)],
             'context': {'default_partner_id': self.id},
@@ -63,7 +63,7 @@ class ResPartner(models.Model):
         return {
             'name': _('Send ZNS Message'),
             'type': 'ir.actions.act_window',
-            'res_model': 'bom_zns_simple.zns.send.wizard',
+            'res_model': 'bom.zns.send.wizard',
             'view_mode': 'form',
             'target': 'new',
             'context': {
