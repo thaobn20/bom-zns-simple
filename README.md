@@ -180,8 +180,8 @@ tail -f /var/log/odoo/odoo.log | grep "bom_zns_simple ZNS"
 
 For issues or feature requests, please contact:
 
-- Email: support@example.com
-- Website: https://example.com
+- Email: support@bom.asia
+- Website: https://bom.asia
 
 ## License
 
