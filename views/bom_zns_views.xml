@@ -3,8 +3,8 @@
     <data>
         <!-- ZNS Configuration Views -->
         <record id="bom_zns_config_view_form" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.config.form</field>
-            <field name="model">bom_zns_simple.zns.config</field>
+            <field name="name">bom.zns.config.form</field>
+            <field name="model">bom.zns.config</field>
             <field name="arch" type="xml">
                 <form string="ZNS Configuration">
                     <header>
@@ -20,7 +20,7 @@
                             <group>
                                 <field name="api_key" password="True"/>
                                 <field name="api_secret" password="True"/>
-                                <field name="base_url" placeholder="https://zns.bom_zns_simple.asia/api"/>
+                                <field name="base_url" placeholder="https://zns.bom.asia/api"/>
                                 <field name="active" widget="boolean_toggle"/>
                             </group>
                             <group>
@@ -41,8 +41,8 @@
         </record>
         
         <record id="bom_zns_config_view_tree" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.config.tree</field>
-            <field name="model">bom_zns_simple.zns.config</field>
+            <field name="name">bom.zns.config.tree</field>
+            <field name="model">bom.zns.config</field>
             <field name="arch" type="xml">
                 <tree string="ZNS Configurations">
                     <field name="name"/>
@@ -57,7 +57,7 @@
         
         <record id="action_bom_zns_config" model="ir.actions.act_window">
             <field name="name">ZNS Configurations</field>
-            <field name="res_model">bom_zns_simple.zns.config</field>
+            <field name="res_model">bom.zns.config</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -71,8 +71,8 @@
         
         <!-- ZNS Variant Views -->
         <record id="bom_zns_variant_view_form" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.variant.form</field>
-            <field name="model">bom_zns_simple.zns.variant</field>
+            <field name="name">bom.zns.variant.form</field>
+            <field name="model">bom.zns.variant</field>
             <field name="arch" type="xml">
                 <form string="Template Variant">
                     <sheet>
@@ -102,14 +102,14 @@
                                         <field name="field_name" placeholder="Field name or custom expression"/>
                                         <field name="field_format" placeholder="E.g., '{:.2f}'"/>
                                     </group>
-                                    <group>
-                                        <!-- Conditional fields based on param_type -->
-                                        <field name="decimal_places" attrs="{'invisible': [('param_type', 'not in', ['number', 'currency'])]}"/>
-                                        <field name="thousand_separator" attrs="{'invisible': [('param_type', 'not in', ['number', 'currency'])]}"/>
-                                        <field name="date_format" attrs="{'invisible': [('param_type', '!=', 'date')]}"/>
-                                        <field name="currency_symbol" attrs="{'invisible': [('param_type', '!=', 'currency'])]}"/>
-                                        <field name="currency_position" attrs="{'invisible': [('param_type', '!=', 'currency'])]}"/>
-                                    </group>
+									<group>
+										<!-- Conditional fields based on param_type -->
+										<field name="decimal_places" attrs="{'invisible': [('param_type', 'not in', ['number', 'currency'])]}"/>
+										<field name="thousand_separator" attrs="{'invisible': [('param_type', 'not in', ['number', 'currency'])]}"/>
+										<field name="date_format" attrs="{'invisible': [('param_type', '!=', 'date')]}"/>
+										<field name="currency_symbol" attrs="{'invisible': [('param_type', '!=', 'currency')]}"/>
+										<field name="currency_position" attrs="{'invisible': [('param_type', '!=', 'currency')]}"/>
+									</group>
                                 </group>
                             </page>
                             <page string="Description" name="description">
@@ -127,8 +127,8 @@
         </record>
         
         <record id="bom_zns_variant_view_tree" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.variant.tree</field>
-            <field name="model">bom_zns_simple.zns.variant</field>
+            <field name="name">bom.zns.variant.tree</field>
+            <field name="model">bom.zns.variant</field>
             <field name="arch" type="xml">
                 <tree string="Template Variants">
                     <field name="sequence" widget="handle"/>
@@ -146,7 +146,7 @@
         
         <record id="action_bom_zns_variant" model="ir.actions.act_window">
             <field name="name">Template Variants</field>
-            <field name="res_model">bom_zns_simple.zns.variant</field>
+            <field name="res_model">bom.zns.variant</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_active': 1}</field>
             <field name="domain">[('template_id', '=', active_id)]</field>

@@ -15,7 +15,7 @@
             <field name="users" eval="[(4, ref('base.user_admin'))]"/>
         </record>
         
-        <!-- Comment out record rules for now
+        <!-- Comment out record rules for now until models are registered
         <record id="rule_bom_zns_history_user" model="ir.rule">
             <field name="name">ZNS History: User can only see their own messages</field>
             <field name="model_id" model="ir.model" search="[('model', '=', 'bom.zns.history')]"/>

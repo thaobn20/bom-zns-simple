@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 class BomZnsConfig(models.Model):
     _name = 'bom.zns.config'
     _description = 'BOM ZNS Configuration'
+    _inherit = ['mail.thread', 'mail.activity.mixin']  # Add this line
     _rec_name = 'name'
     
     name = fields.Char('Name', required=True, default='BOM ZNS Configuration')
