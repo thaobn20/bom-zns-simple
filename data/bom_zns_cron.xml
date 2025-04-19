@@ -4,7 +4,7 @@
         <!-- Scheduled action to check message status -->
         <record id="bom_zns_cron_check_status" model="ir.cron">
             <field name="name">ZNS: Check message status</field>
-            <field name="model_id" ref="model_bom_zns"/>
+            <field name="model_id" ref="bom_zns_simple.model_bom_zns"/>
             <field name="state">code</field>
             <field name="code">model.cron_check_pending_messages()</field>
             <field name="interval_number">60</field>
