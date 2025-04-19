@@ -2,8 +2,8 @@
     'name': 'BOM ZNS Integration',
     'version': '1.0',
     'category': 'Marketing',
-    'summary': 'Integration with Zalo ZNS via BOM API',
-    'author': 'Your Company',
+    'summary': 'Integration with Zalo ZNS via BOM Communications API',
+    'author': 'BOM Communications',
     'website': 'https://bom.asia',
     'license': 'LGPL-3',
     'depends': [
@@ -60,7 +60,7 @@
 BOM ZNS Integration for Odoo
 ============================
 
-This module integrates Odoo with Zalo ZNS (Zero Notification Service) through BOM API.
+This module integrates Odoo with Zalo ZNS (Zero Notification Service) through BOM Communications API.
 Features:
 - Send ZNS messages using templates
 - Manage different message variants
