@@ -7,7 +7,7 @@ from odoo.exceptions import UserError, ValidationError
 _logger = logging.getLogger(__name__)
 
 class BomZnsTemplate(models.Model):
-    _name = 'bom_zns_simple.zns.template'
+    _name = 'bom.zns.template'
     _description = 'BOM ZNS Template'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
@@ -19,7 +19,7 @@ class BomZnsTemplate(models.Model):
     description = fields.Text('Description', help='Template description')
     active = fields.Boolean('Active', default=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
-    config_id = fields.Many2one('bom_zns_simple.zns.config', string='ZNS Configuration',
+    config_id = fields.Many2one('bom.zns.config', string='ZNS Configuration',
                                domain="[('company_id', '=', company_id)]")
     template_content = fields.Text('Template Content', help='Content of the ZNS template')
     template_json = fields.Text('Template JSON', help='JSON representation of the template structure')
@@ -33,9 +33,9 @@ class BomZnsTemplate(models.Model):
        help='Type of the ZNS template')
     
     # Related information
-    variant_ids = fields.One2many('bom_zns_simple.zns.variant', 'template_id', string='Variants')
+    variant_ids = fields.One2many('bom.zns.variant', 'template_id', string='Variants')
     variant_count = fields.Integer(compute='_compute_variant_count', string='Number of Variants')
-    history_ids = fields.One2many('bom_zns_simple.zns.history', 'template_id', string='Message History')
+    history_ids = fields.One2many('bom.zns.history', 'template_id', string='Message History')
     history_count = fields.Integer(compute='_compute_history_count', string='Number of Messages Sent')
     
     # Creation Info
@@ -62,7 +62,7 @@ class BomZnsTemplate(models.Model):
         """Override create to automatically set config_id if not provided"""
         if not vals.get('config_id'):
             company_id = vals.get('company_id', self.env.company.id)
-            config = self.env['bom_zns_simple.zns.config'].search([
+            config = self.env['bom.zns.config'].search([
                 ('company_id', '=', company_id),
                 ('active', '=', True)
             ], limit=1)
@@ -78,7 +78,7 @@ class BomZnsTemplate(models.Model):
             raise UserError(_("Please set a ZNS Configuration for this template first."))
         
         if not self.template_code:
-            raise UserError(_("Template code is required to sync from bom_zns_simple."))
+            raise UserError(_("Template code is required to sync from bom."))
         
         try:
             # Prepare headers
@@ -156,7 +156,7 @@ class BomZnsTemplate(models.Model):
     
     def _sync_template_parameters(self, parameters):
         """Sync template parameters as variants"""
-        Variant = self.env['bom_zns_simple.zns.variant']
+        Variant = self.env['bom.zns.variant']
         
         # Get existing variants for this template
         existing_variants = Variant.search([('template_id', '=', self.id)])
@@ -194,7 +194,7 @@ class BomZnsTemplate(models.Model):
         return {
             'name': _('Template Variants'),
             'type': 'ir.actions.act_window',
-            'res_model': 'bom_zns_simple.zns.variant',
+            'res_model': 'bom.zns.variant',
             'view_mode': 'tree,form',
             'domain': [('template_id', '=', self.id)],
             'context': {'default_template_id': self.id},
@@ -206,7 +206,7 @@ class BomZnsTemplate(models.Model):
         return {
             'name': _('Message History'),
             'type': 'ir.actions.act_window',
-            'res_model': 'bom_zns_simple.zns.history',
+            'res_model': 'bom.zns.history',
             'view_mode': 'tree,form',
             'domain': [('template_id', '=', self.id)],
             'context': {'default_template_id': self.id},
@@ -218,7 +218,7 @@ class BomZnsTemplate(models.Model):
         return {
             'name': _('Send Test ZNS Message'),
             'type': 'ir.actions.act_window',
-            'res_model': 'bom_zns_simple.zns.send.wizard',
+            'res_model': 'bom.zns.send.wizard',
             'view_mode': 'form',
             'target': 'new',
             'context': {

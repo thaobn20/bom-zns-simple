@@ -2,7 +2,7 @@
 <odoo>
     <data noupdate="1">
         <!-- Default ZNS API instance for dashboard -->
-        <record id="default_bom_zns" model="bom_zns_simple.zns">
+        <record id="default_bom_zns" model="bom.zns">
             <field name="name">ZNS API</field>
         </record>
         

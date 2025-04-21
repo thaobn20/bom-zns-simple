@@ -11,12 +11,11 @@
         <record id="group_bom_zns_manager" model="res.groups">
             <field name="name">ZNS Manager</field>
             <field name="category_id" ref="base.module_category_marketing"/>
-            <field name="implied_ids" eval="[(4, ref('group_bom_zns_user'))]"/>
+            <field name="implied_ids" eval="[(4, ref('bom_zns_simple.group_bom_zns_user'))]"/>
             <field name="users" eval="[(4, ref('base.user_admin'))]"/>
         </record>
         
-        <!-- Record Rules -->
-        <!-- Users can only see their own messages unless they are managers -->
+        <!-- Comment out ALL record rules for now 
         <record id="rule_bom_zns_history_user" model="ir.rule">
             <field name="name">ZNS History: User can only see their own messages</field>
             <field name="model_id" ref="model_bom_zns_history"/>
@@ -27,38 +26,6 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="False"/>
         </record>
-        
-        <record id="rule_bom_zns_history_manager" model="ir.rule">
-            <field name="name">ZNS History: Manager can see all messages</field>
-            <field name="model_id" ref="model_bom_zns_history"/>
-            <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('group_bom_zns_manager'))]"/>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
-            <field name="perm_unlink" eval="True"/>
-        </record>
-        
-        <!-- Multi-company rules -->
-        <record id="rule_bom_zns_config_company" model="ir.rule">
-            <field name="name">ZNS Config: Multi-company rule</field>
-            <field name="model_id" ref="model_bom_zns_config"/>
-            <field name="domain_force">['|',('company_id','=',False),('company_id','in',company_ids)]</field>
-            <field name="global" eval="True"/>
-        </record>
-        
-        <record id="rule_bom_zns_template_company" model="ir.rule">
-            <field name="name">ZNS Template: Multi-company rule</field>
-            <field name="model_id" ref="model_bom_zns_template"/>
-            <field name="domain_force">['|',('company_id','=',False),('company_id','in',company_ids)]</field>
-            <field name="global" eval="True"/>
-        </record>
-        
-        <record id="rule_bom_zns_history_company" model="ir.rule">
-            <field name="name">ZNS History: Multi-company rule</field>
-            <field name="model_id" ref="model_bom_zns_history"/>
-            <field name="domain_force">['|',('company_id','=',False),('company_id','in',company_ids)]</field>
-            <field name="global" eval="True"/>
-        </record>
+        -->
     </data>
 </odoo>

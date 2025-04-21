@@ -16,7 +16,7 @@ class BomZnsController(http.Controller):
         # Log request if possible
         try:
             # Get configuration for debug mode
-            config = request.env['bom_zns_simple.zns.config'].sudo().search([('active', '=', True)], limit=1)
+            config = request.env['bom.zns.config'].sudo().search([('active', '=', True)], limit=1)
             if config and config.debug_mode:
                 _logger.info(f"ZNS Webhook data: {json.dumps(data)}")
         except Exception as e:
@@ -38,7 +38,7 @@ class BomZnsController(http.Controller):
         # Process the status update
         try:
             # Find the message history
-            history = request.env['bom_zns_simple.zns.history'].sudo().search([('message_id', '=', message_id)], limit=1)
+            history = request.env['bom.zns.history'].sudo().search([('message_id', '=', message_id)], limit=1)
             if not history:
                 return {'status': 'error', 'message': 'Message not found'}
             
@@ -76,14 +76,14 @@ class BomZnsController(http.Controller):
         """Check and update status of a specific message"""
         try:
             # Create ZNS API instance
-            zns_api = request.env['bom_zns_simple.zns'].sudo().create({})
+            zns_api = request.env['bom.zns'].sudo().create({})
             
             # Check message status
             result = zns_api.check_message_status(message_id)
             
             # Redirect to the message history
             if result.get('history_id'):
-                return werkzeug.utils.redirect('/web#id=%s&model=bom_zns_simple.zns.history&view_type=form' % result.get('history_id'))
+                return werkzeug.utils.redirect('/web#id=%s&model=bom.zns.history&view_type=form' % result.get('history_id'))
             else:
                 return werkzeug.exceptions.BadRequest("Error checking message status: " + result.get('error', 'Unknown error'))
         
@@ -97,8 +97,8 @@ class BomZnsDashboardController(http.Controller):
         """Get dashboard data for ZNS"""
         try:
             # Get statistics for dashboard
-            History = request.env['bom_zns_simple.zns.history'].sudo()
-            Template = request.env['bom_zns_simple.zns.template'].sudo()
+            History = request.env['bom.zns.history'].sudo()
+            Template = request.env['bom.zns.template'].sudo()
             
             # Get counts by state
             state_counts = {}

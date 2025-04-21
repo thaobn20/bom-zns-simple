@@ -7,14 +7,15 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 class BomZnsConfig(models.Model):
-    _name = 'bom_zns_simple.zns.config'
+    _name = 'bom.zns.config'
     _description = 'BOM ZNS Configuration'
+    _inherit = ['mail.thread', 'mail.activity.mixin']  # Add this line
     _rec_name = 'name'
     
     name = fields.Char('Name', required=True, default='BOM ZNS Configuration')
     api_key = fields.Char('API Key', required=True, help='API Key provided by BOM')
     api_secret = fields.Char('API Secret', required=True, help='API Secret provided by BOM')
-    base_url = fields.Char('API Base URL', default='https://zns.bom_zns_simple.asia/api', required=True, 
+    base_url = fields.Char('API Base URL', default='https://zns.bom.asia/api', required=True, 
                           help='Base URL for BOM ZNS API')
     active = fields.Boolean('Active', default=True)
     debug_mode = fields.Boolean('Debug Mode', default=False, 

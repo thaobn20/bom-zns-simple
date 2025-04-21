@@ -8,23 +8,34 @@ from odoo.exceptions import UserError, ValidationError
 _logger = logging.getLogger(__name__)
 
 class BomZns(models.Model):
-    _name = 'bom_zns_simple.zns'
+    _name = 'bom.zns'
     _description = 'BOM ZNS API'
     
     def _default_config_id(self):
-        return self.env['bom_zns_simple.zns.config'].search([
+        return self.env['bom.zns.config'].search([
             ('company_id', '=', self.env.company.id),
             ('active', '=', True)
         ], limit=1).id
     
     name = fields.Char('Name', default="ZNS API")
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
-    config_id = fields.Many2one('bom_zns_simple.zns.config', string='ZNS Configuration', default=_default_config_id)
+    config_id = fields.Many2one('bom.zns.config', string='ZNS Configuration', default=_default_config_id)
+    
+    def action_view_all_messages(self):
+        """View all ZNS messages"""
+        return {
+            'name': _('ZNS Message History'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'bom.zns.history',
+            'view_mode': 'tree,form',
+            'domain': [],
+            'context': {},
+        }
     
     def send_zns_message(self, template_id, phone, params=None, partner_id=False, model=False, res_id=False, is_test=False):
         """Send ZNS message using BOM API
         
-        :param template_id: ID of the bom_zns_simple.zns.template to use
+        :param template_id: ID of the bom.zns.template to use
         :param phone: Phone number of the recipient
         :param params: Dictionary of parameters to use in the template
         :param partner_id: Optional partner ID for tracking
@@ -33,12 +44,12 @@ class BomZns(models.Model):
         :param is_test: Whether this is a test message
         :return: Dictionary with status and message information
         """
-        template = self.env['bom_zns_simple.zns.template'].browse(template_id).exists()
+        template = self.env['bom.zns.template'].browse(template_id).exists()
         if not template:
             return {'success': False, 'error': _("Template not found.")}
         
         # Get configuration
-        config = template.config_id or self.env['bom_zns_simple.zns.config'].get_bom_zns_config()
+        config = template.config_id or self.env['bom.zns.config'].get_bom_zns_config()
         if not config:
             return {'success': False, 'error': _("ZNS Configuration not found.")}
         
@@ -91,7 +102,7 @@ class BomZns(models.Model):
             'debug_information': json.dumps(debug_info),
         }
         
-        history = self.env['bom_zns_simple.zns.history'].create(history_vals)
+        history = self.env['bom.zns.history'].create(history_vals)
         
         try:
             # Log request if debug mode is enabled
@@ -168,12 +179,12 @@ class BomZns(models.Model):
         :return: Dictionary with status information
         """
         # Get history record
-        history = self.env['bom_zns_simple.zns.history'].search([('message_id', '=', message_id)], limit=1)
+        history = self.env['bom.zns.history'].search([('message_id', '=', message_id)], limit=1)
         if not history:
             return {'success': False, 'error': _("Message not found in history.")}
         
         # Get configuration
-        config = history.config_id or self.env['bom_zns_simple.zns.config'].get_bom_zns_config()
+        config = history.config_id or self.env['bom.zns.config'].get_bom_zns_config()
         if not config:
             return {'success': False, 'error': _("ZNS Configuration not found.")}
         
@@ -255,7 +266,7 @@ class BomZns(models.Model):
     def cron_check_pending_messages(self):
         """Scheduled action to check status of pending messages"""
         # Get messages that are in 'sent' state and were sent less than 24 hours ago
-        pending_messages = self.env['bom_zns_simple.zns.history'].search([
+        pending_messages = self.env['bom.zns.history'].search([
             ('state', '=', 'sent'),
             ('create_date', '>=', fields.Datetime.now() - datetime.timedelta(days=1)),
         ], limit=100)
@@ -265,3 +276,22 @@ class BomZns(models.Model):
                 self.check_message_status(message.message_id)
         
         return True
+    def refresh_oa_info(self):
+        """Refresh OA information by calling the config's sync method"""
+        self.ensure_one()
+        config = self.env['bom.zns.config'].search([
+            ('company_id', '=', self.env.company.id),
+            ('active', '=', True)
+        ], limit=1)
+        if config:
+            return config.sync_zalo_oa_info()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Warning'),
+                'message': _('No active ZNS configuration found.'),
+                'sticky': False,
+                'type': 'warning',
+            }
+        }

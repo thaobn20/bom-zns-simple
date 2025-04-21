@@ -3,23 +3,23 @@
     <data>
         <!-- History Form View -->
         <record id="bom_zns_history_view_form" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.history.form</field>
-            <field name="model">bom_zns_simple.zns.history</field>
+            <field name="name">bom.zns.history.form</field>
+            <field name="model">bom.zns.history</field>
             <field name="arch" type="xml">
                 <form string="ZNS Message History">
                     <header>
                         <button name="action_mark_as_sent" string="Mark as Sent" type="object" 
                                 attrs="{'invisible': [('state', 'not in', ['draft', 'failed'])]}" 
-                                groups="bom_zns_simple.group_bom_zns_manager"/>
+                                groups="bom.group_bom_zns_manager"/>
                         <button name="action_mark_as_delivered" string="Mark as Delivered" type="object" 
                                 attrs="{'invisible': [('state', 'not in', ['sent'])]}" 
-                                groups="bom_zns_simple.group_bom_zns_manager"/>
+                                groups="bom.group_bom_zns_manager"/>
                         <button name="action_mark_as_read" string="Mark as Read" type="object" 
                                 attrs="{'invisible': [('state', 'not in', ['delivered'])]}" 
-                                groups="bom_zns_simple.group_bom_zns_manager"/>
+                                groups="bom.group_bom_zns_manager"/>
                         <button name="action_mark_as_failed" string="Mark as Failed" type="object" 
                                 attrs="{'invisible': [('state', 'in', ['failed'])]}" 
-                                groups="bom_zns_simple.group_bom_zns_manager"/>
+                                groups="bom.group_bom_zns_manager"/>
                         <button name="action_retry_sending" string="Retry Sending" type="object" 
                                 attrs="{'invisible': [('state', 'not in', ['failed'])]}" 
                                 class="oe_highlight"/>
@@ -91,8 +91,8 @@
         
         <!-- History Tree View -->
         <record id="bom_zns_history_view_tree" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.history.tree</field>
-            <field name="model">bom_zns_simple.zns.history</field>
+            <field name="name">bom.zns.history.tree</field>
+            <field name="model">bom.zns.history</field>
             <field name="arch" type="xml">
                 <tree string="ZNS Message History" decoration-danger="state=='failed'" decoration-success="state=='read'" decoration-info="state=='sent'" decoration-warning="state=='draft'">
                     <field name="create_date"/>
@@ -114,8 +114,8 @@
         
         <!-- History Search View -->
         <record id="bom_zns_history_view_search" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.history.search</field>
-            <field name="model">bom_zns_simple.zns.history</field>
+            <field name="name">bom.zns.history.search</field>
+            <field name="model">bom.zns.history</field>
             <field name="arch" type="xml">
                 <search string="Search Message History">
                     <field name="message_id"/>
@@ -144,7 +144,7 @@
         <!-- History Action -->
         <record id="action_bom_zns_history" model="ir.actions.act_window">
             <field name="name">ZNS Message History</field>
-            <field name="res_model">bom_zns_simple.zns.history</field>
+            <field name="res_model">bom.zns.history</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'search_default_today': 1}</field>
             <field name="help" type="html">
