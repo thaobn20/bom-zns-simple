@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 _logger = logging.getLogger(__name__)
 
 class BomZnsHistory(models.Model):
-    _name = 'bom_zns_simple.zns.history'
+    _name = 'bom.zns.history'
     _description = 'BOM ZNS Message History'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'message_id'
@@ -15,10 +15,10 @@ class BomZnsHistory(models.Model):
                             help='Unique message ID from BOM ZNS')
     
     # Relation fields
-    template_id = fields.Many2one('bom_zns_simple.zns.template', string='Template', ondelete='set null')
+    template_id = fields.Many2one('bom.zns.template', string='Template', ondelete='set null')
     partner_id = fields.Many2one('res.partner', string='Recipient', ondelete='set null')
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
-    config_id = fields.Many2one('bom_zns_simple.zns.config', string='ZNS Configuration')
+    config_id = fields.Many2one('bom.zns.config', string='ZNS Configuration')
     user_id = fields.Many2one('res.users', string='Sent By', default=lambda self: self.env.user,
                              help='User who sent the message')
     
@@ -110,7 +110,7 @@ class BomZnsHistory(models.Model):
         for record in self:
             if record.state == 'failed' and record.template_id and record.message_params:
                 # Initialize ZNS API handler
-                zns_api = self.env['bom_zns_simple.zns'].create({})
+                zns_api = self.env['bom.zns'].create({})
                 
                 # Parse message parameters
                 try:

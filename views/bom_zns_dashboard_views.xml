@@ -3,8 +3,8 @@
     <data>
         <!-- Dashboard View -->
         <record id="bom_zns_dashboard_view" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.dashboard</field>
-            <field name="model">bom_zns_simple.zns</field>
+            <field name="name">bom.zns.dashboard</field>
+            <field name="model">bom.zns</field>
             <field name="arch" type="xml">
                 <form string="ZNS Dashboard" class="o_dashboard">
                     <sheet>
@@ -146,7 +146,7 @@
         <!-- Dashboard Action -->
         <record id="action_bom_zns_dashboard" model="ir.actions.act_window">
             <field name="name">ZNS Dashboard</field>
-            <field name="res_model">bom_zns_simple.zns</field>
+            <field name="res_model">bom.zns</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="bom_zns_dashboard_view"/>
             <field name="target">current</field>

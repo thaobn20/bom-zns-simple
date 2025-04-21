@@ -6,10 +6,10 @@ from odoo.exceptions import UserError, ValidationError
 _logger = logging.getLogger(__name__)
 
 class BomZnsSendWizard(models.TransientModel):
-    _name = 'bom_zns_simple.zns.send.wizard'
+    _name = 'bom.zns.send.wizard'
     _description = 'Send ZNS Message Wizard'
     
-    template_id = fields.Many2one('bom_zns_simple.zns.template', string='Template', required=True,
+    template_id = fields.Many2one('bom.zns.template', string='Template', required=True,
                                  domain=[('active', '=', True)])
     partner_id = fields.Many2one('res.partner', string='Recipient')
     phone = fields.Char('Phone Number', required=True)
@@ -22,7 +22,7 @@ class BomZnsSendWizard(models.TransientModel):
     is_test = fields.Boolean('Test Message', default=False)
     
     # Dynamic fields for variants
-    variant_ids = fields.One2many('bom_zns_simple.zns.send.wizard.line', 'wizard_id', string='Variants')
+    variant_ids = fields.One2many('bom.zns.send.wizard.line', 'wizard_id', string='Variants')
     
     @api.onchange('template_id')
     def _onchange_template_id(self):
@@ -90,7 +90,7 @@ class BomZnsSendWizard(models.TransientModel):
             params[variant_line.param_name] = variant_line.value
         
         # Initialize ZNS API
-        zns_api = self.env['bom_zns_simple.zns'].create({})
+        zns_api = self.env['bom.zns'].create({})
         
         # Send message
         result = zns_api.send_zns_message(
@@ -128,11 +128,11 @@ class BomZnsSendWizard(models.TransientModel):
 
 
 class BomZnsSendWizardLine(models.TransientModel):
-    _name = 'bom_zns_simple.zns.send.wizard.line'
+    _name = 'bom.zns.send.wizard.line'
     _description = 'Send ZNS Message Wizard Line'
     
-    wizard_id = fields.Many2one('bom_zns_simple.zns.send.wizard', string='Wizard')
-    variant_id = fields.Many2one('bom_zns_simple.zns.variant', string='Variant')
+    wizard_id = fields.Many2one('bom.zns.send.wizard', string='Wizard')
+    variant_id = fields.Many2one('bom.zns.variant', string='Variant')
     param_name = fields.Char('Parameter Name', required=True)
     param_type = fields.Selection([
         ('text', 'Text'),
