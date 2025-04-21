@@ -21,6 +21,17 @@ class BomZns(models.Model):
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     config_id = fields.Many2one('bom.zns.config', string='ZNS Configuration', default=_default_config_id)
     
+    def action_view_all_messages(self):
+        """View all ZNS messages"""
+        return {
+            'name': _('ZNS Message History'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'bom.zns.history',
+            'view_mode': 'tree,form',
+            'domain': [],
+            'context': {},
+        }
+    
     def send_zns_message(self, template_id, phone, params=None, partner_id=False, model=False, res_id=False, is_test=False):
         """Send ZNS message using BOM API
         
@@ -265,22 +276,3 @@ class BomZns(models.Model):
                 self.check_message_status(message.message_id)
         
         return True
-def refresh_oa_info(self):
-    """Refresh OA information by calling the config's sync method"""
-    self.ensure_one()
-    config = self.env['bom.zns.config'].search([
-        ('company_id', '=', self.env.company.id),
-        ('active', '=', True)
-    ], limit=1)
-    if config:
-        return config.sync_zalo_oa_info()
-    return {
-        'type': 'ir.actions.client',
-        'tag': 'display_notification',
-        'params': {
-            'title': _('Warning'),
-            'message': _('No active ZNS configuration found.'),
-            'sticky': False,
-            'type': 'warning',
-        }
-    }
