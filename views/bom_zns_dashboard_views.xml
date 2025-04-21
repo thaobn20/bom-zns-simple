@@ -54,9 +54,12 @@
                                                 <p><strong>OA Name:</strong> <span class="o_bom_zns_oa_name">-</span></p>
                                                 <p><strong>OA ID:</strong> <span class="o_bom_zns_oa_id">-</span></p>
                                                 <p><strong>Last Sync:</strong> <span class="o_bom_zns_last_sync">-</span></p>
+												<!-- Comment out the button causing the error -->
+												<!--
                                                 <button name="refresh_oa_info" type="object" class="btn btn-primary">
                                                     <i class="fa fa-refresh"></i> Refresh OA Info
                                                 </button>
+												-->
                                             </div>
                                         </div>
                                     </div>

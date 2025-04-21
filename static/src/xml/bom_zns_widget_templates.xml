@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ZnsStatusBadge">
+        <span t-att-class="'badge badge-' + color">
+            <t t-esc="label"/>
+        </span>
+    </t>
+    
+    <t t-name="ZnsSendButton">
+        <button t-if="displayButton" class="btn btn-primary btn-sm o_bom_zns_send">
+            <i class="fa fa-paper-plane"></i> Send ZNS
+        </button>
+    </t>
+</templates>

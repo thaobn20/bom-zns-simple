@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="BomZnsDashboard">
+        <div class="o_bom_zns_dashboard">
+            <!-- Dashboard content will go here -->
+        </div>
+    </t>
+</templates>

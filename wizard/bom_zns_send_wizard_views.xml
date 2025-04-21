@@ -3,8 +3,8 @@
     <data>
         <!-- Send Wizard Form View -->
         <record id="bom_zns_send_wizard_view" model="ir.ui.view">
-            <field name="name">bom_zns_simple.zns.send.wizard.form</field>
-            <field name="model">bom_zns_simple.zns.send.wizard</field>
+            <field name="name">bom.zns.send.wizard.form</field>
+            <field name="model">bom.zns.send.wizard</field>
             <field name="arch" type="xml">
                 <form string="Send ZNS Message">
                     <sheet>
@@ -45,7 +45,7 @@
         <!-- Send Message Action -->
         <record id="action_bom_zns_send_wizard" model="ir.actions.act_window">
             <field name="name">Send ZNS Message</field>
-            <field name="res_model">bom_zns_simple.zns.send.wizard</field>
+            <field name="res_model">bom.zns.send.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>

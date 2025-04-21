@@ -276,3 +276,22 @@ class BomZns(models.Model):
                 self.check_message_status(message.message_id)
         
         return True
+    def refresh_oa_info(self):
+        """Refresh OA information by calling the config's sync method"""
+        self.ensure_one()
+        config = self.env['bom.zns.config'].search([
+            ('company_id', '=', self.env.company.id),
+            ('active', '=', True)
+        ], limit=1)
+        if config:
+            return config.sync_zalo_oa_info()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Warning'),
+                'message': _('No active ZNS configuration found.'),
+                'sticky': False,
+                'type': 'warning',
+            }
+        }

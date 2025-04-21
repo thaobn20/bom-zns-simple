@@ -5,7 +5,7 @@ _logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-    
+    zns_history_ids = fields.One2many('bom.zns.history', 'partner_id', string='ZNS Messages')
     zalo_phone = fields.Char('Zalo Phone', help='Phone number associated with Zalo account')
     zalo_id = fields.Char('Zalo ID', help='Zalo User ID if available')
     zalo_opt_in = fields.Boolean('Zalo Opt-in', default=False, 

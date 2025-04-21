@@ -82,6 +82,59 @@
                     </div>
                 </xpath>
             </field>
+			<h2>Automatic ZNS Notifications</h2>
+<div class="row mt16 o_settings_container">
+    <div class="col-12 col-lg-6 o_setting_box">
+        <div class="o_setting_left_pane">
+            <field name="bom_zns_auto_send_so"/>
+        </div>
+        <div class="o_setting_right_pane">
+            <label for="bom_zns_auto_send_so"/>
+            <div class="text-muted">
+                Automatically send ZNS when a sales order is confirmed
+            </div>
+            <div class="content-group" attrs="{'invisible': [('bom_zns_auto_send_so', '=', False)]}">
+                <div class="mt8">
+                    <field name="bom_zns_so_template_id" domain="[('active','=',True)]" options="{'no_create': True}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-lg-6 o_setting_box">
+        <div class="o_setting_left_pane">
+            <field name="bom_zns_auto_send_invoice"/>
+        </div>
+        <div class="o_setting_right_pane">
+            <label for="bom_zns_auto_send_invoice"/>
+            <div class="text-muted">
+                Automatically send ZNS when an invoice is validated
+            </div>
+            <div class="content-group" attrs="{'invisible': [('bom_zns_auto_send_invoice', '=', False)]}">
+                <div class="mt8">
+                    <field name="bom_zns_invoice_template_id" domain="[('active','=',True)]" options="{'no_create': True}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-lg-6 o_setting_box">
+        <div class="o_setting_left_pane">
+            <field name="bom_zns_auto_send_crm"/>
+        </div>
+        <div class="o_setting_right_pane">
+            <label for="bom_zns_auto_send_crm"/>
+            <div class="text-muted">
+                Automatically send ZNS when an opportunity is won
+            </div>
+            <div class="content-group" attrs="{'invisible': [('bom_zns_auto_send_crm', '=', False)]}">
+                <div class="mt8">
+                    <field name="bom_zns_crm_template_id" domain="[('active','=',True)]" options="{'no_create': True}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         </record>
         
         <!-- Settings Action -->

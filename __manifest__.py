@@ -33,20 +33,23 @@
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
         'views/menu_views.xml',
-        'views/assets.xml',
+        'views/sale_order_views.xml',
+        'views/account_move_views.xml',
+        'views/crm_lead_views.xml',
+        #'views/assets.xml',
         
         # Wizards
         'wizard/bom_zns_send_wizard_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
-            'bom/static/src/js/bom_zns_dashboard.js',
-            'bom/static/src/js/bom_zns_widget.js',
-            'bom/static/src/css/bom_zns_style.css',
+            'bom_zns_simple/static/src/js/bom_zns_dashboard.js',
+            'bom_zns_simple/static/src/js/bom_zns_widget.js',
+            'bom_zns_simple/static/src/css/bom_zns_style.css',
         ],
         'web.assets_qweb': [
-            'bom/static/src/xml/bom_zns_dashboard_templates.xml',
-            'bom/static/src/xml/bom_zns_widget_templates.xml',
+            'bom_zns_simple/static/src/xml/bom_zns_dashboard_templates.xml',
+            'bom_zns_simple/static/src/xml/bom_zns_widget_templates.xml',
         ],
     },
     'installable': True,

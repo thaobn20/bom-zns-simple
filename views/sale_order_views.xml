@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_bom_zns" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.bom.zns</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <button name="action_confirm" position="after">
+                    <button name="action_send_zns" string="Send ZNS" type="object" 
+                            attrs="{'invisible': [('state', 'not in', ['sale', 'done'])]}"
+                            class="btn-primary"/>
+                </button>
+                <field name="date_order" position="after">
+                    <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

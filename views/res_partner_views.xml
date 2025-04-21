@@ -32,15 +32,15 @@
                             </group>
                         </group>
                         <group string="Message History" attrs="{'invisible': [('zns_history_count', '=', 0)]}">
-                            <field name="zns_history_ids" context="{'default_partner_id': active_id}" readonly="1" nolabel="1">
-                                <tree>
-                                    <field name="create_date"/>
-                                    <field name="template_id"/>
-                                    <field name="state" widget="badge" decoration-info="state == 'sent'" decoration-success="state == 'read'" decoration-warning="state == 'delivered'" decoration-danger="state == 'failed'"/>
-                                    <field name="delivery_date"/>
-                                    <field name="read_date"/>
-                                </tree>
-                            </field>
+							<field name="zns_history_ids" context="{'default_partner_id': active_id}" readonly="1" nolabel="1">
+								<tree>
+									<field name="create_date"/>
+									<field name="template_id"/>
+									<field name="state" widget="badge" decoration-info="state == 'sent'" decoration-success="state == 'read'" decoration-warning="state == 'delivered'" decoration-danger="state == 'failed'"/>
+									<field name="delivery_date"/>
+									<field name="read_date"/>
+								</tree>
+							</field>
                         </group>
                     </page>
                 </page>
