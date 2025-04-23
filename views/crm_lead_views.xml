@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Opportunity Form View -->
-        <record id="crm_lead_view_form_inherit_bom_zns" model="ir.ui.view">
-            <field name="name">crm.lead.view.form.inherit.bom.zns</field>
-            <field name="model">crm.lead</field>
-            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
-            <field name="arch" type="xml">
-                <!-- Add Send ZNS button for opportunities -->
-                <button name="action_set_won_rainbowman" position="after">
-                    <button name="action_send_zns" string="Send ZNS" type="object" 
-                            attrs="{'invisible': [('type', '!=', 'opportunity')]}"
-                            class="btn-primary"/>
-                </button>
-                
-                <!-- Add ZNS sent field -->
-                <field name="date_deadline" position="after">
-                    <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
-                </field>
-                
-                <!-- Add ZNS History tab for opportunities -->
-                <page name="lead" position="after">
-                    <page name="zns_info" string="ZNS Messages" 
-                          attrs="{'invisible': [('type', '!=', 'opportunity')]}">
-                        <group>
-                            <field name="zns_sent" readonly="1"/>
-                            <button name="action_send_zns" string="Send ZNS Message" type="object" 
-                                    class="btn-primary"/>
-                        </group>
-                        <group string="Message History">
-                            <!-- This field will be added by your existing history functionality -->
-                            <field name="zns_history_ids" context="{'default_model': 'crm.lead', 'default_res_id': active_id}" nolabel="1" readonly="1">
-                                <tree>
-                                    <field name="create_date"/>
-                                    <field name="template_id"/>
-                                    <field name="state"/>
-                                    <field name="delivery_date"/>
-                                    <field name="read_date"/>
-                                </tree>
-                            </field>
-                        </group>
-                    </page>
-                </page>
+    <!-- Opportunity Form View -->
+    <record id="crm_lead_view_form_inherit_bom_zns" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit.bom.zns</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Send ZNS button for opportunities -->
+            <button name="action_set_won_rainbowman" position="after">
+                <button name="action_send_zns" string="Send ZNS" type="object" 
+                        attrs="{'invisible': [('type', '!=', 'opportunity')]}"
+                        class="btn-primary"/>
+            </button>
+            
+            <!-- Add ZNS sent field -->
+            <field name="date_deadline" position="after">
+                <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
             </field>
-        </record>
-    </data>
+            
+            <!-- Add ZNS History tab for opportunities -->
+            <page name="lead" position="after">
+                <page name="zns_info" string="ZNS Messages" 
+                      attrs="{'invisible': [('type', '!=', 'opportunity')]}">
+                    <group>
+                        <field name="zns_sent" readonly="1"/>
+                        <button name="action_send_zns" string="Send ZNS Message" type="object" 
+                                class="btn-primary"/>
+                    </group>
+                    <group string="Message History">
+                        <!-- This field will be added by your existing history functionality -->
+                        <field name="zns_history_ids" context="{'default_model': 'crm.lead', 'default_res_id': active_id}" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="create_date"/>
+                                <field name="template_id"/>
+                                <field name="state"/>
+                                <field name="delivery_date"/>
+                                <field name="read_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
 </odoo>
