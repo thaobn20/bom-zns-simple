@@ -14,7 +14,14 @@ class ResConfigSettings(models.TransientModel):
     bom_zns_config_id = fields.Many2one('bom.zns.config', string='ZNS Configuration')
     bom_zns_safe_eval = fields.Boolean(string='Enable Custom Expressions', 
                                      help='Enable custom expressions for variant values (security risk)')
-    
+    # Add these fields to your ResConfigSettings class
+    bom_zns_auto_send_so = fields.Boolean(string='Auto-send ZNS on SO Confirmation')
+    bom_zns_auto_send_invoice = fields.Boolean(string='Auto-send ZNS on Invoice Validation')
+    bom_zns_auto_send_crm = fields.Boolean(string='Auto-send ZNS on Opportunity Won')
+
+    bom_zns_so_template_id = fields.Many2one('bom.zns.template', string='SO Template')
+    bom_zns_invoice_template_id = fields.Many2one('bom.zns.template', string='Invoice Template')
+    bom_zns_crm_template_id = fields.Many2one('bom.zns.template', string='CRM Template')
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
@@ -110,3 +117,43 @@ class ResConfigSettings(models.TransientModel):
             }
         
         return config.test_connection()
+    # Auto-send settings
+    bom_zns_auto_send_so = fields.Boolean(string='Auto-send ZNS on SO Confirmation')
+    bom_zns_auto_send_invoice = fields.Boolean(string='Auto-send ZNS on Invoice Validation')
+    bom_zns_auto_send_crm = fields.Boolean(string='Auto-send ZNS on Opportunity Won')
+    
+    # Template selections
+    bom_zns_so_template_id = fields.Many2one('bom.zns.template', string='SO Template')
+    bom_zns_invoice_template_id = fields.Many2one('bom.zns.template', string='Invoice Template')
+    bom_zns_crm_template_id = fields.Many2one('bom.zns.template', string='CRM Template')
+    
+    @api.model
+    def get_values(self):
+        res = super(ResConfigSettings, self).get_values()
+        IrParam = self.env['ir.config_parameter'].sudo()
+        
+        # Add the new settings
+        res.update({
+            'bom_zns_auto_send_so': IrParam.get_param('bom_zns_simple.auto_send_so', 'False').lower() == 'true',
+            'bom_zns_auto_send_invoice': IrParam.get_param('bom_zns_simple.auto_send_invoice', 'False').lower() == 'true',
+            'bom_zns_auto_send_crm': IrParam.get_param('bom_zns_simple.auto_send_crm', 'False').lower() == 'true',
+            
+            'bom_zns_so_template_id': int(IrParam.get_param('bom_zns_simple.so_template_id', '0')),
+            'bom_zns_invoice_template_id': int(IrParam.get_param('bom_zns_simple.invoice_template_id', '0')),
+            'bom_zns_crm_template_id': int(IrParam.get_param('bom_zns_simple.crm_template_id', '0')),
+        })
+        
+        return res
+    
+    def set_values(self):
+        super(ResConfigSettings, self).set_values()
+        IrParam = self.env['ir.config_parameter'].sudo()
+        
+        # Save the new settings
+        IrParam.set_param('bom_zns_simple.auto_send_so', str(self.bom_zns_auto_send_so))
+        IrParam.set_param('bom_zns_simple.auto_send_invoice', str(self.bom_zns_auto_send_invoice))
+        IrParam.set_param('bom_zns_simple.auto_send_crm', str(self.bom_zns_auto_send_crm))
+        
+        IrParam.set_param('bom_zns_simple.so_template_id', str(self.bom_zns_so_template_id.id or 0))
+        IrParam.set_param('bom_zns_simple.invoice_template_id', str(self.bom_zns_invoice_template_id.id or 0))
+        IrParam.set_param('bom_zns_simple.crm_template_id', str(self.bom_zns_crm_template_id.id or 0))

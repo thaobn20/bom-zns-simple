@@ -6,3 +6,6 @@ from . import bom_zns_history
 from . import bom_zns_variant
 from . import res_config_settings
 from . import res_partner
+from . import sale_order
+from . import account_move
+from . import crm_lead

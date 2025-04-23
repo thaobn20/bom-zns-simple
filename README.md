@@ -1,6 +1,6 @@
 # BOM ZNS Integration for Odoo 15
 
-This module integrates Odoo with Zalo ZNS (Zero Notification Service) through BOM API.
+This module integrates Odoo with Zalo ZNS (Zalo Notification Service) through BOM API.
 
 ## Features
 
@@ -151,8 +151,8 @@ For complex parameter values:
 
 1. **Connection Failed**
    - Verify API credentials
-   - Check network connectivity to bom_zns_simple API
-   - Ensure your IP is whitelisted in bom_zns_simple
+   - Check network connectivity to BOM API
+   - Ensure your IP is whitelisted in BOM
 
 2. **Template Not Found**
    - Verify template code
@@ -180,8 +180,8 @@ tail -f /var/log/odoo/odoo.log | grep "bom_zns_simple ZNS"
 
 For issues or feature requests, please contact:
 
-- Email: support@example.com
-- Website: https://example.com
+- Email: support@bom.asia
+- Website: https://bom.asia
 
 ## License
 
