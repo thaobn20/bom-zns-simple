@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Invoice Form View -->
-        <record id="view_move_form_inherit_bom_zns" model="ir.ui.view">
-            <field name="name">account.move.form.inherit.bom.zns</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_form"/>
-            <field name="arch" type="xml">
-                <!-- Add Send ZNS button for customer invoices -->
-                <button name="action_post" position="after">
-                    <button name="action_send_zns" string="Send ZNS" type="object" 
-                            attrs="{'invisible': ['|', ('move_type', '!=', 'out_invoice'), ('state', '!=', 'posted')]}"
-                            class="btn-primary"/>
-                </button>
-                
-                <!-- Add ZNS sent field -->
-                <field name="invoice_date" position="after">
-                    <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
-                </field>
-                
-                <!-- Add ZNS History tab for customer invoices -->
-                <page name="other_info" position="after">
-                    <page name="zns_info" string="ZNS Messages" 
-                          attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}">
-                        <group>
-                            <field name="zns_sent" readonly="1"/>
-                            <button name="action_send_zns" string="Send ZNS Message" type="object" 
-                                    attrs="{'invisible': [('state', '!=', 'posted')]}"
-                                    class="btn-primary"/>
-                        </group>
-                        <group string="Message History">
-                            <!-- This field will be added by your existing history functionality -->
-                            <field name="zns_history_ids" context="{'default_model': 'account.move', 'default_res_id': active_id}" nolabel="1" readonly="1">
-                                <tree>
-                                    <field name="create_date"/>
-                                    <field name="template_id"/>
-                                    <field name="state"/>
-                                    <field name="delivery_date"/>
-                                    <field name="read_date"/>
-                                </tree>
-                            </field>
-                        </group>
-                    </page>
-                </page>
+	<data noupdate="1">
+    <!-- Invoice Form View -->
+    <record id="view_move_form_inherit_bom_zns" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.bom.zns</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Send ZNS button for customer invoices -->
+            <button name="action_post" position="after">
+                <button name="action_send_zns" string="Send ZNS" type="object" 
+                        attrs="{'invisible': ['|', ('move_type', '!=', 'out_invoice'), ('state', '!=', 'posted')]}"
+                        class="btn-primary"/>
+            </button>
+            
+            <!-- Add ZNS sent field -->
+            <field name="invoice_date" position="after">
+                <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
             </field>
-        </record>
+            
+            <!-- Add ZNS History tab for customer invoices -->
+            <page name="other_info" position="after">
+                <page name="zns_info" string="ZNS Messages" 
+                      attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}">
+                    <group>
+                        <field name="zns_sent" readonly="1"/>
+                        <button name="action_send_zns" string="Send ZNS Message" type="object" 
+                                attrs="{'invisible': [('state', '!=', 'posted')]}"
+                                class="btn-primary"/>
+                    </group>
+                    <group string="Message History">
+                        <!-- This field will be added by your existing history functionality -->
+                        <field name="zns_history_ids" context="{'default_model': 'account.move', 'default_res_id': active_id}" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="create_date"/>
+                                <field name="template_id"/>
+                                <field name="state"/>
+                                <field name="delivery_date"/>
+                                <field name="read_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
     </data>
 </odoo>

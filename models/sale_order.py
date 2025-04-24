@@ -1,3 +1,21 @@
+# At the top of each file
+import logging
+_logger = logging.getLogger(__name__)
+
+# At the beginning of important methods
+def action_send_zns(self):
+    """Send ZNS notification"""
+    _logger.info("Starting action_send_zns for %s (ID: %s)", self._name, self.id)
+    
+    # Log important parameters
+    _logger.info("Parameters: phone=%s, template=%s", self.partner_id.phone, self.template_id.name)
+    
+    try:
+        # Your existing code
+        _logger.info("API call successful")
+    except Exception as e:
+        _logger.error("Failed to send ZNS: %s", str(e), exc_info=True)
+        raise
 from odoo import api, fields, models, _
 
 class SaleOrder(models.Model):

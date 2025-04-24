@@ -1,6 +1,6 @@
 # BOM ZNS Integration for Odoo 15
 
-This module integrates Odoo with Zalo ZNS (Zero Notification Service) through BOM API.
+This module integrates Odoo with Zalo ZNS (Zalo Notification Service) through BOM API.
 
 ## Features
 

@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_order_form_inherit_bom_zns" model="ir.ui.view">
-            <field name="name">sale.order.form.inherit.bom.zns</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form"/>
-            <field name="arch" type="xml">
-                <button name="action_confirm" position="after">
-                    <button name="action_send_zns" string="Send ZNS" type="object" 
-                            attrs="{'invisible': [('state', 'not in', ['sale', 'done'])]}"
-                            class="btn-primary"/>
-                </button>
-                <field name="date_order" position="after">
-                    <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
-                </field>
+    <data noupdate="1">
+	<!-- Sales Order Form View -->
+    <record id="view_order_form_inherit_bom_zns" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.bom.zns</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Send ZNS button for sales orders -->
+            <button name="action_confirm" position="after">
+                <button name="action_send_zns" string="Send ZNS" type="object" 
+                        attrs="{'invisible': [('state', 'not in', ['sale', 'done'])]}"
+                        class="btn-primary"/>
+            </button>
+            
+            <!-- Add ZNS sent field -->
+            <field name="date_order" position="after">
+                <field name="zns_sent" readonly="1" groups="base.group_no_one"/>
             </field>
-        </record>
+            
+            <!-- Add ZNS History tab for sales orders -->
+            <page name="other_information" position="after">
+                <page name="zns_info" string="ZNS Messages" 
+                      attrs="{'invisible': [('state', 'not in', ['sale', 'done'])]}">
+                    <group>
+                        <field name="zns_sent" readonly="1"/>
+                        <button name="action_send_zns" string="Send ZNS Message" type="object" 
+                                class="btn-primary"/>
+                    </group>
+                    <group string="Message History">
+                        <!-- This field will be added by your existing history functionality -->
+                        <field name="zns_history_ids" context="{'default_model': 'sale.order', 'default_res_id': active_id}" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="create_date"/>
+                                <field name="template_id"/>
+                                <field name="state"/>
+                                <field name="delivery_date"/>
+                                <field name="read_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
     </data>
 </odoo>
